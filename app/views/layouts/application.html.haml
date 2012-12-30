@@ -2,17 +2,18 @@
 %html
   %head
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %title= content_for?(:title) ? yield(:title) : "Taoke Simple"
+      %title= content_for?(:title) ? yield(:title) : t('appname')
       %meta{:content => content_for?(:description) ? yield(:description) : "Taoke Simple", :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
         = javascript_include_tag "application"
         = csrf_meta_tags
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
+    -unless @hide_nav
+      %header.navbar.navbar-fixed-top
+        %nav.navbar-inner
+          .container
+            = render 'layouts/navigation'
     #main{:role => "main"}
       .container
         .content
@@ -21,5 +22,7 @@
               = render 'layouts/messages'
               = yield
           %footer
+            =yield :footer
       / ! end of .container
     / ! end of #main
+  ='<script type="text/javascript" src="http://js.tongji.linezing.com/3086576/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3086576/tongji.gif"/></a></noscript>'.html_safe

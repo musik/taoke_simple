@@ -177,7 +177,6 @@ GEM
       addressable (~> 2.3)
     libnotify (0.8.0)
       ffi (>= 1.0.11)
-    libv8 (3.11.8.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -306,6 +305,8 @@ GEM
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -407,6 +408,7 @@ DEPENDENCIES
   devise-i18n
   devise-i18n-views
   email_spec (>= 1.4.0)
+  execjs
   factory_girl_rails (>= 4.1.0)
   figaro (>= 0.5.0)
   god
@@ -424,7 +426,6 @@ DEPENDENCIES
   kaminari-i18n
   launchy (>= 2.1.2)
   libnotify
-  libv8 (>= 3.11.8)
   mysql2
   nokogiri
   quiet_assets (>= 1.0.1)
@@ -442,6 +443,7 @@ DEPENDENCIES
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.4)
   ruby_parser (>= 3.1.1)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   simple_form (>= 2.0.4)
   sqlite3

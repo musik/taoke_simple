@@ -18,6 +18,8 @@
 # minimal Rails specific artifacts
 db/*.sqlite3
 db/sphinx
+config/development.sphinx.conf
+db/test.sqlite3*
 db/data.yml
 /log/*
 /tmp/*

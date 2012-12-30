@@ -3,9 +3,26 @@ class Word < ActiveRecord::Base
   has_one :itemdata
   before_create :slug_gen
   after_create :init_data
+
+  scope :recent,order('id desc')
+  scope :published,where(:publish=>true)
+  scope :random,order('rand()')
+  #scope :random,where('id >= (SELECT FLOOR( MAX(id) * RAND()) FROM `words` )')
+  scope :short,select('name,slug')
+  
+  define_index do
+    indexes :name
+    has :isbrand,:facets=>true
+    where sanitize_sql(["publish", true])
+    #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
+  end
+
   def init_data
     Resque.enqueue UpdateKeywords,id
     Resque.enqueue UpdateItems,id
+  end
+  def check_published
+    update_attribute :publish,true if items.present?
   end
   def slug_gen
     base = self[:slug].present? ? self[:slug] : random_slug
@@ -16,6 +33,19 @@ class Word < ActiveRecord::Base
   end
   def slug_regen
     update_attribute :slug,slug_gen
+  end
+  def title
+    @title ||= begin
+                 if keywords.present?  
+                   arr = keywords.split(',')
+                   ([name] + arr[0,3]).join('_')
+                 else
+                   name
+                 end
+               end
+  end
+  def keywords_hash
+    @keywords_hash ||= (keywords.present? ? keywords.split(',') : [])
   end
   def random_slug
     #rand(479890..1679615).to_s 36
@@ -30,7 +60,7 @@ class Word < ActiveRecord::Base
     end
   end
   def items
-    itemdata.present? ? itemdata.data : nil
+    itemdata.present? ? YAML.load(itemdata.data) : nil
   end
   def update_items
     url = 'http://s.m.taobao.com/search_turn_page_iphone.htm'
@@ -38,12 +68,17 @@ class Word < ActiveRecord::Base
     if response.success?
       data = JSON.parse(response.body)
       Itemdata.where(:word_id=>id).first_or_create :data=>data["listItem"]
+      check_published
     end
   end
 
   class << self
     def import
-
+      where('id > 8733').find_each do |r|
+          keep_time 1 do
+            r.update_items
+          end
+      end
     end
   end
 end
