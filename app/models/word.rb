@@ -16,13 +16,13 @@ class Word < ActiveRecord::Base
     where('id > ?',offset).limit(limit)
   }
   
-  define_index do
-    indexes :name
-    has :id
-    has :isbrand,:facets=>true
-    where sanitize_sql(["publish", true])
-    #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
-  end
+  #define_index do
+    #indexes :name
+    #has :id
+    #has :isbrand,:facets=>true
+    #where sanitize_sql(["publish", true])
+    ##set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
+  #end
 
   def init_data
     Resque.enqueue UpdateKeywords,id

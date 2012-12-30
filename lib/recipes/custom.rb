@@ -9,6 +9,10 @@ Capistrano::Configuration.instance.load do
       #upload './config/database.yml', "#{shared_path}/config/database.yml"
       upload './config/application.yml', "#{shared_path}/config/application.yml"
     end 
+    task :symlink do
+      run "rm -rf #{release_path}/config/database.yml && ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+      run "rm -rf #{release_path}/config/application.yml && ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml"
+    end
   end
   namespace :unicorn do
     task :symlink do
@@ -21,6 +25,9 @@ Capistrano::Configuration.instance.load do
     #end
   end
   namespace :ss do
+    task :rvm,:roles => :app do
+      run "PATH=$PATH:$HOME/.rvm/bin;rvm use ruby-head"
+    end
     task :uptime,:roles => :app do
       run "uptime"
     end
