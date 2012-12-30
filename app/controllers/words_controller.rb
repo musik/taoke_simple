@@ -33,7 +33,8 @@ class WordsController < ApplicationController
   end
   def home
     @word = Word.find_by_slug request.subdomain
-    @rands = Word.short.random.limit(10)
+    #@rands = Word.short.random.limit(10)
+    @rands = Word.random(10).short
     @relates = Word.search @word.name.sub(/ /,''),
             :without=>{:id=>@word.id},
             :match_mode => :any,

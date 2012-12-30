@@ -6,9 +6,15 @@ class Word < ActiveRecord::Base
 
   scope :recent,order('id desc')
   scope :published,where(:publish=>true)
-  scope :random,order('rand()')
+  #scope :random,order('rand()')
   #scope :random,where('id >= (SELECT FLOOR( MAX(id) * RAND()) FROM `words` )')
   scope :short,select('name,slug')
+  scope :random,lambda{|limit|
+    #more = (limit * 1.5).ceil
+    lid = select(:id).last.id - limit
+    offset = rand(1..lid)
+    where('id > ?',offset).limit(limit)
+  }
   
   define_index do
     indexes :name
