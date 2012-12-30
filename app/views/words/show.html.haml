@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @word.name
+%p
+  %b Slug:
+  = @word.slug
+%p
+  %b Publish:
+  = @word.publish
+%p
+  %b Isbrand:
+  = @word.isbrand
+%p
+  %b Keywords:
+  = @word.keywords
+
+= link_to 'Edit', edit_word_path(@word)
+\|
+= link_to 'Back', words_path

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229125710) do
+ActiveRecord::Schema.define(:version => 20121230080354) do
+
+  create_table "itemdata", :force => true do |t|
+    t.integer  "word_id"
+    t.binary   "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "itemdata", ["word_id"], :name => "index_itemdata_on_word_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -49,5 +58,15 @@ ActiveRecord::Schema.define(:version => 20121229125710) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "words", :force => true do |t|
+    t.string   "name"
+    t.string   "slug",       :limit => 10
+    t.boolean  "publish"
+    t.boolean  "isbrand"
+    t.string   "keywords"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
 end

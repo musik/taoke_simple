@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'sqlite3'
+gem 'mysql2'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -31,3 +32,50 @@ gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem "libv8", ">= 3.11.8"
 gem "therubyracer", ">= 0.11.0", :group => :assets, :platform => :ruby, :require => "v8"
 gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
+
+
+
+group :development do
+  gem 'libnotify', :group => :development
+  gem 'rb-inotify', :require => false
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-rspec'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+  gem 'capistrano'
+  #gem 'capistrano-ext'
+  gem 'capistrano-recipes'
+  gem 'capistrano-helpers'
+  #gem 'rvm-capistrano'
+  gem 'capistrano-unicorn',:git=>'git://github.com/sosedoff/capistrano-unicorn.git'
+  gem 'capistrano-resque'
+end
+
+gem 'thin'
+
+gem 'kaminari'
+gem 'breadcrumbs'
+gem 'rails-i18n'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+gem 'kaminari-i18n'
+
+gem 'typhoeus'
+gem 'nokogiri'
+
+gem 'redis-rails'
+gem 'redis'
+gem 'resque'
+gem 'resque-ensure-connected'
+gem 'resque-retry'
+gem 'resque-cleaner'
+gem 'resque-pool'
+gem 'god'
+
+gem 'thinking-sphinx', '2.0.13'
+gem "ts-resque-delta", "~> 1.2.2"
+
+gem 'yaml_db'
+
+gem 'related_words','~> 0.0.2'

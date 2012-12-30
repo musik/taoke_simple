@@ -1,0 +1,12 @@
+= simple_form_for(@word) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :slug
+    = f.input :publish
+    = f.input :isbrand
+    = f.input :keywords
+
+  .form-actions
+    = f.button :submit
