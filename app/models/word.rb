@@ -12,6 +12,7 @@ class Word < ActiveRecord::Base
   
   define_index do
     indexes :name
+    has :id
     has :isbrand,:facets=>true
     where sanitize_sql(["publish", true])
     #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta

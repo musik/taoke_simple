@@ -258,7 +258,6 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.3)
       redis (>= 2.2.0)
-    ref (1.0.2)
     related_words (0.0.2)
     resque (1.23.0)
       multi_json (~> 1.0)
@@ -332,8 +331,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
-    therubyracer (0.11.0)
-      ref
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -447,7 +444,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (>= 2.0.4)
   sqlite3
-  therubyracer (>= 0.11.0)
   thin
   thinking-sphinx (= 2.0.13)
   ts-resque-delta (~> 1.2.2)
