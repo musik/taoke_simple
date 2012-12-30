@@ -1,0 +1,19 @@
+development:
+  bin_path: /usr/local/coreseek/bin
+  max_children: 1
+  mem_limit: 128M
+  #workers: prefork
+  charset_type: zh_cn.utf-8
+  charset_dictpath: /usr/local/mmseg3/etc/
+  port: 9397
+  indexed_models:
+    - Word
+production:
+  #address: 192.168.17.125
+  bin_path: /usr/local/coreseek/bin
+  #max_children: 6
+  mem_limit: 1024M
+  #workers: prefork
+  charset_type: zh_cn.utf-8
+  charset_dictpath: /usr/local/mmseg3/etc/
+  port: 9397
