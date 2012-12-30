@@ -51,9 +51,9 @@ group :development do
   gem 'rvm-capistrano'
   gem 'capistrano-unicorn',:git=>'git://github.com/sosedoff/capistrano-unicorn.git'
   gem 'capistrano-resque'
+  gem 'thin'
 end
 
-gem 'thin'
 
 gem 'kaminari'
 gem 'breadcrumbs'
