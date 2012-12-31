@@ -74,8 +74,8 @@ gem 'resque-cleaner'
 gem 'resque-pool'
 gem 'god'
 
-#gem 'thinking-sphinx', '2.0.13'
-#gem "ts-resque-delta", "~> 1.2.2"
+gem 'thinking-sphinx', '2.0.13'
+gem "ts-resque-delta", "~> 1.2.2"
 
 gem 'yaml_db'
 

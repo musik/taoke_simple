@@ -1,5 +1,6 @@
 class Word < ActiveRecord::Base
   attr_accessible :isbrand, :keywords, :name, :publish, :slug
+  resourcify
   has_one :itemdata
   before_create :slug_gen
   after_create :init_data
@@ -16,13 +17,13 @@ class Word < ActiveRecord::Base
     where('id > ?',offset).limit(limit)
   }
   
-  #define_index do
-    #indexes :name
-    #has :id
-    #has :isbrand,:facets=>true
-    #where sanitize_sql(["publish", true])
-    ##set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
-  #end
+  define_index do
+    indexes :name
+    has :id
+    has :isbrand,:facets=>true
+    where sanitize_sql(["publish", true])
+    #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
+  end
 
   def init_data
     Resque.enqueue UpdateKeywords,id

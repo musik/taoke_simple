@@ -24,9 +24,9 @@ set :deploy_via, :remote_cache
 #recipes
 require 'helpers'
 require 'recipes/application'
-require './lib/recipes/hooks.rb'
+#require './lib/recipes/hooks.rb'
 #after "deploy:finalize_update","bundler:install"
-require './lib/recipes/bundler.rb'
+#require './lib/recipes/bundler.rb'
 
 #RVM
 #set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")

@@ -35,10 +35,10 @@ class WordsController < ApplicationController
     @word = Word.find_by_slug request.subdomain
     #@rands = Word.short.random.limit(10)
     @rands = Word.random(10).short
-    #@relates = Word.search @word.name.sub(/ /,''),
-            #:without=>{:id=>@word.id},
-            #:match_mode => :any,
-            #:per_page => 10
+    @relates = Word.search @word.name.sub(/ /,''),
+            :without=>{:id=>@word.id},
+            :match_mode => :any,
+            :per_page => 10
   end
 
   # GET /words/new
