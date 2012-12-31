@@ -17,6 +17,13 @@ class Word < ActiveRecord::Base
     where('id > ?',offset).limit(limit)
   }
   
+  @queue = "word"
+  def self.perform id,method,*args
+    find(id).send(method, *args)
+  end
+  def async(method, *args)
+    Resque.enqueue(Word, id, method, *args)
+  end
   define_index do
     indexes :name
     has :id
@@ -26,12 +33,14 @@ class Word < ActiveRecord::Base
   end
   DOMAIN = ENV["DOMAIN"]
   def to_url
-    "http://#{slug}#{DOMAIN}"
+    @url ||= "http://#{slug}#{DOMAIN}"
   end
 
   def init_data
-    Resque.enqueue UpdateKeywords,id
-    Resque.enqueue UpdateItems,id
+    #Resque.enqueue UpdateKeywords,id
+    #Resque.enqueue UpdateItems,id
+    async(:with_delay,:update_keywords)
+    async(:with_delay,:update_items)
   end
   def check_published
     update_attribute :publish,true if items.present?
@@ -66,6 +75,11 @@ class Word < ActiveRecord::Base
   def update_keywords
     update_attribute :keywords,RelatedWords::Baidu.query(name).join(',')
   end
+  def with_delay method
+    keep_time 1 do
+      send method rescue nil
+    end
+  end
   def update_keywords_with_delay
     keep_time 1 do
       update_keywords rescue nil
@@ -90,6 +104,10 @@ class Word < ActiveRecord::Base
             :per_page => limit
     ids.present? ? Word.short.where(:id=>ids) : []
   end
+  def preload
+    Typhoeus::Request.get "#{to_url}/flush"
+    Typhoeus::Request.get to_url
+  end
 
   class << self
     def import
@@ -99,10 +117,9 @@ class Word < ActiveRecord::Base
           end
       end
     end
-    def preload id
-      where('id > ?',id).select('id,slug').find_each do |r|
-        response =Typhoeus::Request.get "http://#{r.slug}.sqfy.com"
-        pp [response.response_code,response.total_time,r.id,response.effective_url]
+    def preload
+      select('id').find_each do |r|
+        r.async :preload
       end
     end
   end
