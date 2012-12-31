@@ -4,4 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+Resque.logger = Logger.new("./log/resque.log")
+require 'resque/tasks'
+require 'resque_scheduler/tasks'
 TaokeSimple::Application.load_tasks

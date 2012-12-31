@@ -36,7 +36,7 @@ Capistrano::Configuration.instance.load do
     end
     task :bundle, :roles => :app do
       #run "which bundle"
-      run "gem install bundler"
+      #run "gem install bundler"
     end
     task :update_rates, :roles => :app do
       run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec rails runner 'Shop::Import.new.update_all_rates'"
