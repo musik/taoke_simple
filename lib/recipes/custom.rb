@@ -10,8 +10,11 @@ Capistrano::Configuration.instance.load do
       upload './config/application.yml', "#{shared_path}/config/application.yml"
     end 
     task :symlink do
+      run "if [ ! -d '#{shared_path}/html' ]; then mkdir #{shared_path}/html; fi;"
+      run "rm -rf #{release_path}/public/cache && ln -nfs #{shared_path}/html #{release_path}/public/cache"
       run "rm -rf #{release_path}/config/database.yml && ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       run "rm -rf #{release_path}/config/application.yml && ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml"
+
     end
   end
   namespace :unicorn do
@@ -32,7 +35,8 @@ Capistrano::Configuration.instance.load do
       run "uptime"
     end
     task :bundle, :roles => :app do
-      run "which bundle"
+      #run "which bundle"
+      run "gem install bundler"
     end
     task :update_rates, :roles => :app do
       run "cd #{current_path};RAILS_ENV=#{rails_env} bundle exec rails runner 'Shop::Import.new.update_all_rates'"

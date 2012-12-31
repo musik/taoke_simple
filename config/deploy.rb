@@ -23,7 +23,7 @@ set :deploy_via, :remote_cache
 
 set :default_environment, {
     'PATH' => "$HOME/.rvm/gems/ruby-1.9.3-p327/bin:$HOME/.rvm/gems/ruby-1.9.3-p327@global/bin:$HOME/.rvm/rubies/ruby-1.9.3-p327/bin:$HOME/.rvm/bin:$PATH",
-    'GEM_HOME' => '/home/muzik/.rvm/gems/ruby-1.9.3-p327'
+    'GEM_HOME' => '/home/muzik/.rvm/gems/ruby-1.9.3-p327:/home/muzik/.rvm/gems/ruby-1.9.3-p327@global'
 }
 #recipes
 require 'helpers'
@@ -59,7 +59,7 @@ set :environment, 'production'
 #Database And config files
 #before "deploy:assets:precompile","app:"
 require './lib/recipes/db.rb'
-after "deploy:setup","app:yml"
+after "deploy:finalize_update","app:yml"
 after "deploy:finalize_update","app:symlink"
 require './lib/recipes/custom.rb'
 
@@ -72,7 +72,7 @@ require './lib/recipes/custom.rb'
 #Sphinx
 #before 'deploy:create_symlink', 'sphinx:pi'
 after 'deploy:create_symlink', 'sphinx:symlink'
-after 'deploy:create_symlink', 'sphinx:index'
+#after 'deploy:create_symlink', 'sphinx:config'
 before 'deploy:start','sphinx:start'
 #before 'deploy:restart','sphinx:index'
 before 'deploy:restart','sphinx:restart'

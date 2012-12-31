@@ -99,5 +99,11 @@ class Word < ActiveRecord::Base
           end
       end
     end
+    def preload id
+      where('id > ?',id).select('id,slug').find_each do |r|
+        response =Typhoeus::Request.get "http://#{r.slug}.sqfy.com"
+        pp [response.response_code,response.total_time,r.id,response.effective_url]
+      end
+    end
   end
 end
