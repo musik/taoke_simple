@@ -437,6 +437,7 @@ DEPENDENCIES
   resque-ensure-connected
   resque-pool
   resque-retry
+  resque-scheduler
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.4)
   ruby_parser (>= 3.1.1)

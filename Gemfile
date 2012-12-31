@@ -73,6 +73,7 @@ gem 'resque-retry'
 gem 'resque-cleaner'
 gem 'resque-pool'
 gem 'god'
+gem 'resque-scheduler', :require => 'resque_scheduler'
 
 gem 'thinking-sphinx', '2.0.13'
 gem "ts-resque-delta", "~> 1.2.2"

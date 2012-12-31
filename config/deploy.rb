@@ -90,10 +90,10 @@ require 'capistrano-unicorn'
 
 #Resque
 #before 'deploy:restart','resque:restart'
-#role :resque_worker, "rhhost"
-##role :resque_scheduler, "bzjshl.com"
-#set :workers, { "update_rates_front,update_rates,import_store" => 1 }
-#require 'capistrano-resque'
+role :resque_worker, "rhhost"
+role :resque_scheduler, "rhhost"
+set :workers, { "update_keywords,update_items" => 1 }
+require 'capistrano-resque'
 
 require "bundler/capistrano"
 

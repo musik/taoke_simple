@@ -30,6 +30,11 @@ class WordsController < ApplicationController
     @rands = Word.random(10).short
     @relates = @word.related
   end
+  def flush
+    @word = Word.find_by_slug request.subdomain
+    expire_page :action=>:home
+    redirect_to :action=>:home
+  end
 
   # GET /words/new
   # GET /words/new.json
