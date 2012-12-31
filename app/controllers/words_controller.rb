@@ -1,12 +1,5 @@
 class WordsController < ApplicationController
   caches_page :home
-  before_filter :update_cache_location
-
-  def update_cache_location
-    if request.subdomain.present?
-      ActionController::Base.page_cache_directory = "#{Rails.public_path}/cache/#{request.subdomain}"
-    end
-  end
   # GET /words
   # GET /words.json
   def index

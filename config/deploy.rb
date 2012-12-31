@@ -22,9 +22,8 @@ set :deploy_via, :remote_cache
 #set :git_shallow_clone, 1
 
 set :default_environment, {
-    #'PATH' => "$HOME/.rvm/gems/ruby-1.9.3-p362/bin:$HOME/.rvm/gems/ruby-1.9.3-p362@global/bin:$HOME/.rvm/rubies/ruby-1.9.3-p362/bin:$HOME/.rvm/bin:$PATH",
-    'PATH' => "/home/muzik/.rvm/gems/ruby-1.9.3-p362/bin:/home/muzik/.rvm/gems/ruby-1.9.3-p362@global/bin:/home/muzik/.rvm/rubies/ruby-1.9.3-p362/bin:/home/muzik/.rvm/bin:$PATH",
-    'GEM_HOME' => '/home/muzik/.rvm/gems/ruby-1.9.3-p362'
+    'PATH' => "$HOME/.rvm/gems/ruby-1.9.3-p327/bin:$HOME/.rvm/gems/ruby-1.9.3-p327@global/bin:$HOME/.rvm/rubies/ruby-1.9.3-p327/bin:$HOME/.rvm/bin:$PATH",
+    'GEM_HOME' => '/home/muzik/.rvm/gems/ruby-1.9.3-p327'
 }
 #recipes
 require 'helpers'
@@ -72,12 +71,12 @@ require './lib/recipes/custom.rb'
 
 #Sphinx
 #before 'deploy:create_symlink', 'sphinx:pi'
-#after 'deploy:create_symlink', 'sphinx:symlink'
-#after 'deploy:create_symlink', 'sphinx:config'
-#before 'deploy:start','sphinx:start'
-##before 'deploy:restart','sphinx:index'
-#before 'deploy:restart','sphinx:restart'
-#require './lib/cap/sphinx.rb'
+after 'deploy:create_symlink', 'sphinx:symlink'
+after 'deploy:create_symlink', 'sphinx:index'
+before 'deploy:start','sphinx:start'
+#before 'deploy:restart','sphinx:index'
+before 'deploy:restart','sphinx:restart'
+require './lib/recipes/sphinx.rb'
 
 #Unicorn
 set :unicorn_workers,2

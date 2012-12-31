@@ -20,23 +20,20 @@
 
       # path for static files
       root <%= deploy_to %>/current/public;
-      access_log <%= deploy_to %>/current/log/nginx.access.log main;
-      error_log  <%= deploy_to %>/current/log/nginx.error.log info;
+      access_log <%= deploy_to %>/current/log/access.log main;
+      error_log  <%= deploy_to %>/current/log/error.log info;
 
       # this rewrites all the requests to the maintenance.html
       # page if it exists in the doc root. This is for capistrano's
       # disable web task
       
-      if (-f $document_root/system/maintenance.html) {
-        return 503;
-      }
-      error_page 503 @maintenance;
+      try_files /system/maintenance.html $uri $uri/index.html $uri.html /cache/$host$uri/index.html /cache/$host$uri.html @app;
       location @maintenance {
         rewrite  ^(.*)$  /system/maintenance.html last;
         break;
       }
       
-      location / {
+      location @app {
         <% if is_using_passenger %>
         rails_env <%= rails_env %>;
         passenger_enabled on;
@@ -45,36 +42,9 @@
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         
-        # If the file exists as a static file serve it directly without
-        # running all the other rewite tests on it
-        if (-f $request_filename) { 
-          break; 
-        }
-
-        # check for index.html for directory index
-        # if its there on the filesystem then rewite 
-        # the url to add /index.html to the end of it
-        # and then break to send it to the next config rules.
-        if (-f $request_filename/index.html) {
-          rewrite (.*) $1/index.html break;
-        }
-
-        # this is the meat of the rails page caching config
-        # it adds .html to the end of the url and then checks
-        # the filesystem for that file. If it exists, then we
-        # rewite the url to have explicit .html on the end 
-        # and then send it on its way to the next config rule.
-        # if there is no file on the fs then it sets all the 
-        # necessary headers and proxies to our upstream mongrels
-        if (-f $request_filename.html) {
-          rewrite (.*) $1.html break;
-        }
-        
         <% if is_using_unicorn %>
-        if (!-f $request_filename) {
-          proxy_pass http://<%= application %>_app_server;
-          break;
-        }
+        proxy_pass http://<%= application %>_app_server;
+        break;
         <% end %>
       }
       
@@ -112,7 +82,7 @@
       }
       
       # Rails error pages
-      error_page 500 502 504 /500.html;
+      error_page 500 502 503 504 /500.html;
       location = /500.html {
         root <%= deploy_to %>/current/public;
       }
