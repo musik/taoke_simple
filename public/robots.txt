@@ -4,3 +4,6 @@
 User-Agent: *
 Disallow: /tags/
 Disallow: /posts
+Disallow: /topic/
+Disallow: /companies/
+Disallow: /s/

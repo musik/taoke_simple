@@ -75,7 +75,7 @@ after 'deploy:create_symlink', 'sphinx:symlink'
 #after 'deploy:create_symlink', 'sphinx:config'
 before 'deploy:start','sphinx:start'
 #before 'deploy:restart','sphinx:index'
-before 'deploy:restart','sphinx:restart'
+#before 'deploy:restart','sphinx:restart'
 require './lib/recipes/sphinx.rb'
 
 #Unicorn
@@ -89,11 +89,13 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 require 'capistrano-unicorn'
 
 #Resque
+
+require './lib/recipes/resque.rb'
 #before 'deploy:restart','resque:restart'
-role :resque_worker, "rhhost"
-role :resque_scheduler, "rhhost"
-set :workers, { "update_keywords,update_items" => 1 }
-require 'capistrano-resque'
+#role :resque_worker, "rhhost"
+#role :resque_scheduler, "rhhost"
+#set :workers, { "update_keywords,update_items" => 1 }
+#require 'capistrano-resque'
 
 require "bundler/capistrano"
 

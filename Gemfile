@@ -82,3 +82,4 @@ gem "ts-resque-delta", "~> 1.2.2"
 gem 'yaml_db'
 
 gem 'related_words','~> 0.0.2'
+

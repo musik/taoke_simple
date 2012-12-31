@@ -2,6 +2,7 @@
 -title @word.title
 -meta :keywords,@word.keywords_hash[0,3].join(',')
 %h1#name=@word.name
+=javascript_tag "replaceLink();"
 .row
   .span7
     -#%p=sprintf('<strong>%1$s网</strong>精选<strong>%1$s</strong>信息,产品排行,店铺推荐,买家评价.',@word.name).html_safe
@@ -27,10 +28,9 @@
       %h3 #{@word.name}店铺推荐
       -if @word.items
         %ul.shops
-          -@word.items.each do |r|
-            -r = OpenStruct.new r 
+          -@word.items.collect{|r| r["nick"]}.uniq.each do |str|
             %li{:class=>cycle('a','b')}
-              =r.nick
+              =str
     -if @relates.present?
       .widget
         %h4 相关搜索
@@ -54,3 +54,5 @@
   =@meta[:keywords]
 
 
+-content_for :head do
+  ="<script type=\"text/javascript\" src=\"http://assets#{ENV["DOMAIN"]}/static/app.js\" data=\"#{CGI.escape @word.name}\"></script>".html_safe
