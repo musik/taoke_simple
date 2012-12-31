@@ -22,6 +22,8 @@
               = render 'layouts/messages'
               = yield
           %footer
+            &copy; 2012 
+            =link_to t('appname'),"http://www#{ENV["DOMAIN"]}"
             =yield :footer
       / ! end of .container
     / ! end of #main

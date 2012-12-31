@@ -24,6 +24,10 @@ class Word < ActiveRecord::Base
     where sanitize_sql(["publish", true])
     #set_property :delta => ThinkingSphinx::Deltas::ResqueDelta
   end
+  DOMAIN = ENV["DOMAIN"]
+  def to_url
+    "http://#{slug}#{DOMAIN}"
+  end
 
   def init_data
     Resque.enqueue UpdateKeywords,id
@@ -78,6 +82,13 @@ class Word < ActiveRecord::Base
       Itemdata.where(:word_id=>id).first_or_create :data=>data["listItem"]
       check_published
     end
+  end
+  def related limit=10
+    ids = Word.search_for_ids name.sub(/ /,''),
+            :without=>{:id=>id},
+            :match_mode => :any,
+            :per_page => limit
+    ids.present? ? Word.short.where(:id=>ids) : []
   end
 
   class << self

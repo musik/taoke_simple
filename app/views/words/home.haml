@@ -36,13 +36,13 @@
         %h4 相关搜索
         %ul
           -@relates.each do |r|
-            %li=link_to r.name
+            %li=link_to r.name,r.to_url
     -if @rands
       .widget
         %h4 随机推荐
         %ul
           -@rands.each do |r|
-            %li=link_to r.name
+            %li=link_to r.name,r.to_url
 
 
 .alert.alert-notice
@@ -50,7 +50,6 @@
   以上为淘宝网#{@word.name}买家评价、产品排行、店家排行，由#{@word.name}导购网整理，若要查看更多淘宝网#{@word.name}相关数据，请点击页面顶部链接进入#{@word.name}天猫淘宝商城查看。
 
 -content_for :footer do
-  &copy; 2012 
   =link_to @word.name,root_url(:subdomain=>@word.slug)
   =@meta[:keywords]
 

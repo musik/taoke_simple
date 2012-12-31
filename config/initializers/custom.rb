@@ -9,3 +9,5 @@ def keep_time n=1,&block
   t = e - s
   sleep n - t if n > t
 end
+
+ENV["DOMAIN"] = '.lvh.me:3002' if Rails.env.development?

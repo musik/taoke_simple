@@ -21,6 +21,11 @@ set :rake_bin, 'bundle exec rake'
 set :deploy_via, :remote_cache
 #set :git_shallow_clone, 1
 
+set :default_environment, {
+    #'PATH' => "$HOME/.rvm/gems/ruby-1.9.3-p362/bin:$HOME/.rvm/gems/ruby-1.9.3-p362@global/bin:$HOME/.rvm/rubies/ruby-1.9.3-p362/bin:$HOME/.rvm/bin:$PATH",
+    'PATH' => "/home/muzik/.rvm/gems/ruby-1.9.3-p362/bin:/home/muzik/.rvm/gems/ruby-1.9.3-p362@global/bin:/home/muzik/.rvm/rubies/ruby-1.9.3-p362/bin:/home/muzik/.rvm/bin:$PATH",
+    'GEM_HOME' => '/home/muzik/.rvm/gems/ruby-1.9.3-p362'
+}
 #recipes
 require 'helpers'
 require 'recipes/application'
@@ -30,15 +35,13 @@ require 'recipes/application'
 
 #RVM
 #set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
-set :rvm_ruby_string,"ruby-head"
 #set :rvm_install_ruby_params, '--1.9'      # for jruby/rbx default to 1.9 mode
 #set :rvm_install_pkgs, %w[libyaml openssl] # package list from https://rvm.io/packages
 #set :rvm_install_ruby_params, '--with-opt-dir=/usr/local/rvm/usr' # package support
-set :rvm_type, :user
 
-before 'deploy:setup', 'rvm:install_rvm'   # install RVM
+#before 'deploy:setup', 'rvm:install_rvm'   # install RVM
 #before 'deploy:setup', 'rvm:install_pkgs'  # install RVM packages before Ruby
-before 'deploy:setup', 'rvm:install_ruby'  # install Ruby and create gemset, or:
+#before 'deploy:setup', 'rvm:install_ruby'  # install Ruby and create gemset, or:
 #before 'deploy:setup', 'rvm:create_gemset' # only create gemset
 #before 'deploy:setup', 'rvm:import_gemset' # import gemset from file
 
@@ -93,7 +96,7 @@ require 'capistrano-unicorn'
 #set :workers, { "update_rates_front,update_rates,import_store" => 1 }
 #require 'capistrano-resque'
 
-#require "bundler/capistrano"
+require "bundler/capistrano"
 
 after "deploy:restart", "deploy:cleanup"
 #set :privates,%w{
