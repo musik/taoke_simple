@@ -90,6 +90,7 @@ require 'capistrano-unicorn'
 
 #Resque
 
+set :resque_service,'resque'
 require './lib/recipes/resque.rb'
 #before 'deploy:restart','resque:restart'
 #role :resque_worker, "rhhost"

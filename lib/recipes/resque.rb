@@ -19,7 +19,7 @@ Capistrano::Configuration.instance.load do
     
       desc "|DarkRecipes| Restart all workers"
       task :restart, :roles => :app do
-        run "cd #{current_path} && #{sudo} god restart #{resque_service}"
+        run "cd #{current_path} && bundle exec god restart #{resque_service}"
       end  
     end
   
