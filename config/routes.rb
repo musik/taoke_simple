@@ -10,10 +10,6 @@ TaokeSimple::Application.routes.draw do
   constraints resque_constraint do
     mount Resque::Server.new, :at => "/resque"
   end
-  authenticated :user do
-    root :to => 'home#index'
-  end
-  root :to => "home#index"
   if Settings.use_subdomain 
     constraints :subdomain => /[a-z]{4}/ do
       match '/flush'=>'words#flush'
@@ -22,4 +18,8 @@ TaokeSimple::Application.routes.draw do
   else
     match ':id' => 'words#home',:as=>'word_home'
   end
+  authenticated :user do
+    root :to => 'home#index'
+  end
+  root :to => "home#index"
 end
