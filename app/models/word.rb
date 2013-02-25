@@ -33,7 +33,10 @@ class Word < ActiveRecord::Base
   end
   DOMAIN = ENV["DOMAIN"]
   def to_url
-    @url ||= "http://#{slug}#{DOMAIN}"
+    @url ||= Settings.use_subdomain ? "http://#{slug}#{DOMAIN}" : "http://www#{DOMAIN}/#{slug}"
+  end
+  def clean_name
+    @clean_name ||= name.gsub(/ /,'')
   end
 
   def init_data
@@ -59,9 +62,9 @@ class Word < ActiveRecord::Base
     @title ||= begin
                  if keywords.present?  
                    arr = keywords.split(',')
-                   ([name] + arr[0,3]).join('_')
+                   ([clean_name] + arr[0,2]).join('_')
                  else
-                   name
+                   clean_name
                  end
                end
   end

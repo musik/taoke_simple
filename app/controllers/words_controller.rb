@@ -25,7 +25,8 @@ class WordsController < ApplicationController
     end
   end
   def home
-    @word = Word.find_by_slug request.subdomain
+    @slug = params.has_key? :id ? params[:id] : request.subdomain
+    @word = Word.find_by_slug @slug
     #@rands = Word.short.random.limit(10)
     @rands = Word.random(10).short
     @relates = @word.related

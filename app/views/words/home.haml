@@ -1,14 +1,14 @@
 -@hide_nav =true
 -title @word.title
 -meta :keywords,@word.keywords_hash[0,3].join(',')
-%h1#name=@word.name
+%h1#name=@word.clean_name
 =javascript_tag "replaceLink();"
 .row
   .span7
-    -#%p=sprintf('<strong>%1$s网</strong>精选<strong>%1$s</strong>信息,产品排行,店铺推荐,买家评价.',@word.name).html_safe
+    -#%p=sprintf('<strong>%1$s网</strong>精选<strong>%1$s</strong>信息,产品排行,店铺推荐,买家评价.',@word.clean_name).html_safe
 
-    %p.description=sprintf('<strong>%1$s导购网</strong>为您提供最新的<strong>%1$s</strong>类产品相关资讯，精选最真实的<strong>%1$s买家评价</strong>、最实时的<strong>%1$s排行榜</strong>、最权威的<strong>%1$s店家排行</strong>，给您做参考，是你网购<strong>%1$s</strong>的好助手。',@word.name).html_safe
-    %h2 #{@word.name}产品推荐
+    %p.description=sprintf('<strong>%1$s导购网</strong>为您提供最新的<strong>%1$s</strong>类产品相关资讯，精选最真实的<strong>%1$s买家评价</strong>、最实时的<strong>%1$s排行榜</strong>、最权威的<strong>%1$s店家排行</strong>，给您做参考，是你网购<strong>%1$s</strong>的好助手。',@word.clean_name).html_safe
+    %h2 #{@word.clean_name}产品推荐
     -if @word.items
       -#=debug @word.items.first
       %ul.items
@@ -25,7 +25,7 @@
 
   .span4.pull-right
     .widget
-      %h3 #{@word.name}店铺推荐
+      %h3 #{@word.clean_name}店铺推荐
       -if @word.items
         %ul.shops
           -@word.items.collect{|r| r["nick"]}.uniq.each do |str|
@@ -36,23 +36,23 @@
         %h4 相关搜索
         %ul
           -@relates.each do |r|
-            %li=link_to r.name,r.to_url
+            %li=link_to r.clean_name,r.to_url
     -if @rands
       .widget
         %h4 随机推荐
         %ul
           -@rands.each do |r|
-            %li=link_to r.name,r.to_url
+            %li=link_to r.clean_name,r.to_url
 
 
 .alert.alert-notice
   %strong 提示
-  以上为淘宝网#{@word.name}买家评价、产品排行、店家排行，由#{@word.name}导购网整理，若要查看更多淘宝网#{@word.name}相关数据，请点击页面顶部链接进入#{@word.name}天猫淘宝商城查看。
+  以上为淘宝网#{@word.clean_name}买家评价、产品排行、店家排行，由#{@word.clean_name}导购网整理，若要查看更多淘宝网#{@word.clean_name}相关数据，请点击页面顶部链接进入#{@word.clean_name}天猫淘宝商城查看。
 
 -content_for :footer do
-  =link_to @word.name,root_url(:subdomain=>@word.slug)
+  =link_to @word.clean_name,root_url(:subdomain=>@word.slug)
   =@meta[:keywords]
 
 
 -content_for :head do
-  ="<script type=\"text/javascript\" src=\"http://assets#{ENV["DOMAIN"]}/static/app.js\" data=\"#{CGI.escape @word.name}\"></script>".html_safe
+  ="<script id=\"apjs\" type=\"text/javascript\" src=\"http://assets#{ENV["DOMAIN"]}/static/app.js\" data=\"#{CGI.escape @word.name}\"></script>".html_safe

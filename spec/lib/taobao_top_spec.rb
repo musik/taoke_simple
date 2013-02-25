@@ -10,9 +10,10 @@ describe TaobaoTop do
     #pp TaobaoTop.new.get_data 'TR_BBFS'
     #pp TaobaoTop.new.process
     #arr1 = TaobaoTop.new.get_keywords 16,:sn=>1000
-    arr = TaobaoTop.new.get_brands 16
-    #pp arr.select{|r| r.match(/Gree/).present?}
-    pp arr.select{|r| r.length > 20}
+    #arr = TaobaoTop.new.get_brands 16
+    ##pp arr.select{|r| r.match(/Gree/).present?}
+    #pp arr.select{|r| r.length > 20}
+    #TaobaoTop.new.tmp_process 'TR_JJ'
 
     
 

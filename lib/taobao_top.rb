@@ -4,6 +4,21 @@ class TaobaoTop
     @base = 'http://top.taobao.com/'
     @api_url = 'http://top.taobao.com/interface_v2.php'
   end
+  #不保存数据
+  def tmp_process cid = 16
+    @thiskey = "keywords:#{cid}"
+    get_keywords(cid).each{|r| Resque.redis.lpush @thiskey,r}
+    cat = get_cat cid
+    cats_children(cat).each do |id,r|
+      if r["has_child"].zero?
+        get_keywords(id).each{|r| Resque.redis.lpush @thiskey,r}
+      else
+        tmp_process id
+      end
+    end
+    pp [cid,Resque.redis.llen(@thiskey)]
+    return
+  end
   def process cid = 16
     async_get_data cid
     cat = get_cat cid
