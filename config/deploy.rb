@@ -1,6 +1,6 @@
 set :application, "taoke_simple"
-#set :repository,  "git@bitbucket.org:muzik/shop_analyzer.git"
-set :repository,  "git@gitcafe.com:muzik/taoke_simple.git"
+#set :repository,  "git@gitcafe.com:muzik/taoke_simple.git"
+set :repository,  "git@github.com:musik/taoke_simple.git"
 
 set :scm, :git
 

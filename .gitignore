@@ -16,6 +16,7 @@
 /vendor/ruby/
 
 # minimal Rails specific artifacts
+db/*.sql
 db/*.sqlite3
 db/sphinx
 config/development.sphinx.conf
