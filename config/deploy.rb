@@ -5,9 +5,9 @@ set :repository,  "git@gitcafe.com:muzik/taoke_simple.git"
 set :scm, :git
 
 set :deploy_to, "/home/muzik/taoke_simple"
-role :web, "rhhost"                          # Your HTTP server, Apache/etc
-role :app, "rhhost"                          # This may be the same as your `Web` server
-role :db,  "rhhost", :primary => true # This is where Rails migrations will run
+role :web, "rho"                          # Your HTTP server, Apache/etc
+role :app, "rho"                          # This may be the same as your `Web` server
+role :db,  "rho", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 set :user, "muzik"
 set :group, "muzik"
@@ -16,7 +16,7 @@ set :use_sudo,false
 set :using_rvm,false
 ssh_options[:forward_agent] = true
 
-set :branch, "master"
+set :branch, "63qu"
 set :rake_bin, 'bundle exec rake'
 set :deploy_via, :remote_cache
 #set :git_shallow_clone, 1
@@ -93,8 +93,8 @@ require 'capistrano-unicorn'
 set :resque_service,'resque'
 require './lib/recipes/resque.rb'
 #before 'deploy:restart','resque:restart'
-#role :resque_worker, "rhhost"
-#role :resque_scheduler, "rhhost"
+#role :resque_worker, "rho"
+#role :resque_scheduler, "rho"
 #set :workers, { "update_keywords,update_items" => 1 }
 #require 'capistrano-resque'
 
