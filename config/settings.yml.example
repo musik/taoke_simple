@@ -1,5 +1,7 @@
 defaults: &defaults
-  use_subdomain: <%=true%>
+  use_subdomain: <%=false%>
+  appname: 63区
+  domain: .lvh.me:3002
 
 development:
   <<: *defaults
@@ -9,3 +11,4 @@ test:
 
 production:
   <<: *defaults
+  domain: 63qu.com

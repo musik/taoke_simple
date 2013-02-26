@@ -3,7 +3,7 @@
   %head
     %meta{:'http-equiv'=>"Content-Type",:content=>"text/html; charset=utf-8"}
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-    %title= content_for?(:title) ? yield(:title) : t('appname')
+    %title= content_for?(:title) ? yield(:title) : Settings.appname
     = stylesheet_link_tag "application", :media => "all"
     = csrf_meta_tags
     = yield(:head)
@@ -22,7 +22,7 @@
               = yield
           %footer
             &copy; 2012 
-            =link_to t('appname'),"http://www#{ENV["DOMAIN"]}"
+            =link_to Settings.appname,"http://www#{Settings.domain}"
             =yield :footer
       / ! end of .container
     / ! end of #main
