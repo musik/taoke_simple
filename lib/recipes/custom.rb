@@ -8,7 +8,7 @@ Capistrano::Configuration.instance.load do
       #run "rm -rf #{shared_path}/config/database.yml"
       #upload './config/database.yml', "#{shared_path}/config/database.yml"
       upload './config/application.yml', "#{shared_path}/config/application.yml"
-      upload './config/settings.yml.example', "#{shared_path}/config/settings.yml"
+      upload './config/settings.yml', "#{shared_path}/config/settings.yml"
     end 
     task :symlink do
       run "if [ ! -d '#{shared_path}/html' ]; then mkdir #{shared_path}/html; fi;"

@@ -1,5 +1,5 @@
 defaults: &defaults
-  use_subdomain: <%=false%>
+  use_subdomain: <%=true%>
 
 development:
   <<: *defaults
