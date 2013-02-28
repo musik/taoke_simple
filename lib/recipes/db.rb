@@ -2,6 +2,9 @@ require 'erb'
 
 Capistrano::Configuration.instance.load do
   namespace :db do
+    task :migrate do
+      run "cd #{release_path} && #{rake_bin} db:migrate"
+    end
     namespace :mysql do
       desc <<-EOF
       |DarkRecipes| Performs a compressed database dump. \
@@ -50,6 +53,30 @@ Capistrano::Configuration.instance.load do
             channel.send_data "#{pass}\n" 
           end
         end
+        create_yaml
+      end
+
+
+      desc "|DarkRecipes| Create database.yml in shared path with settings for current stage and test env"
+      task :create_yaml do      
+        db_config = ERB.new <<-EOF
+        base: &base
+          adapter: mysql2
+          encoding: utf8
+          username: #{db_user}
+          password: #{db_pass}
+
+        #{environment}:
+          database: #{application}_#{environment}
+          <<: *base
+
+        test:
+          database: #{application}_test
+          <<: *base
+        EOF
+        run "mkdir -p #{shared_path}/config"
+        run "chmod g+w #{shared_path}/config"
+        put db_config.result, "#{shared_path}/config/database.yml"
       end
       
       # Sets database variables from remote database.yaml
@@ -74,29 +101,6 @@ Capistrano::Configuration.instance.load do
       end
     end
     
-    desc "|DarkRecipes| Create database.yml in shared path with settings for current stage and test env"
-    task :create_yaml do      
-      set(:db_user) { Capistrano::CLI.ui.ask "Enter #{environment} database username:" }
-      set(:db_pass) { Capistrano::CLI.password_prompt "Enter #{environment} database password:" }
-      
-      db_config = ERB.new <<-EOF
-      base: &base
-        adapter: mysql2
-        encoding: utf8
-        username: #{db_user}
-        password: #{db_pass}
-
-      #{environment}:
-        database: #{application}_#{environment}
-        <<: *base
-
-      test:
-        database: #{application}_test
-        <<: *base
-      EOF
-
-      put db_config.result, "#{shared_path}/config/database.yml"
-    end
   end
     
   def prepare_for_db_command
@@ -106,6 +110,7 @@ Capistrano::Configuration.instance.load do
     set(:db_pass) { Capistrano::CLI.password_prompt "Enter #{environment} database password:" }
   end
   
+
   desc "Populates the database with seed data"
   task :seed do
     Capistrano::CLI.ui.say "Populating the database..."
@@ -113,6 +118,6 @@ Capistrano::Configuration.instance.load do
   end
   
   after "deploy:setup" do
-    db.create_yaml if Capistrano::CLI.ui.agree("Create database.yml in app's shared path? [Yn]")
+    db.mysql.setup if Capistrano::CLI.ui.agree("Create database.yml in app's shared path? [Yn]")
   end
 end

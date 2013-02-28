@@ -10,7 +10,7 @@ num_workers.times do |num|
     w.group    = 'resque'
     w.interval = 30.seconds
     #w.env      = {"QUEUE"=>"word", "RAILS_ENV"=>rails_env}
-    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=word"
+    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=p1,p2,p3"
     #w.start    = "bundle exec rake resque:work"
 
 #    w.uid = 'muzik'

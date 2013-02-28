@@ -34,6 +34,7 @@ db/data.yml
 .redcar/
 .sass-cache
 /config/config.yml
+/config/taobaorb.yml
 /config/database.yml
 /coverage.data
 /coverage/

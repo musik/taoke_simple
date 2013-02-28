@@ -20,11 +20,11 @@ class TaobaoTop
     return
   end
   def process cid = 16
-    async_get_data cid
+    async_import_cat_data cid unless cid.nil?
     cat = get_cat cid
     cats_children(cat).each do |id,r|
       if r["has_child"].zero?
-        async_get_data id
+        async_import_cat_data id
       else
         process id
       end
@@ -63,7 +63,7 @@ class TaobaoTop
         rs << CGI.unescape(a.attr('href').match(/q\=(.+?)\&/)[1],'GBK')
       end
     end
-    rs
+    rs.collect{|r| r.gsub(/ /,'')}
   end
   def get_brands catid
     get_keywords catid,:trtp=>3,:sn=>1000
@@ -75,7 +75,17 @@ class TaobaoTop
     }
     rs
   end
-  def async_get_data catid
+  @queue = "p3"
+  def self.perform method,*args
+    TaobaoTop.new.send(method, *args)
+  end
+  def async(method, *args)
+    Resque.enqueue(TaobaoTop, method, *args)
+  end
+  def async_import_cat_data catid
+    async(:import_cat_data,catid)
+  end
+  def import_cat_data catid
     keywords = get_keywords catid
     keywords.each do |r|
       Word.where(:name=>r).first_or_create

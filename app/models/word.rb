@@ -1,6 +1,6 @@
 class Word < ActiveRecord::Base
   attr_accessible :isbrand, :keywords, :name, :publish, :slug
-  resourcify
+  #resourcify
   has_one :itemdata
   before_create :slug_gen
   after_create :init_data
@@ -17,7 +17,7 @@ class Word < ActiveRecord::Base
     where('id > ?',offset).limit(limit)
   }
   
-  @queue = "word"
+  @queue = "p2"
   def self.perform id,method,*args
     find(id).send(method, *args)
   end
@@ -99,6 +99,11 @@ class Word < ActiveRecord::Base
       Itemdata.where(:word_id=>id).first_or_create :data=>data["listItem"]
       check_published
     end
+  end
+  def update_tk_items
+    fields = 'num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume'
+    params = {method: 'taobao.taobaoke.items.get', fields: fields, keyword: name}
+    Taobao.api_request params
   end
   def related limit=10
     ids = Word.search_for_ids name.sub(/ /,''),

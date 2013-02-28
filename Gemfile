@@ -84,3 +84,4 @@ gem 'yaml_db'
 gem 'related_words','~> 0.0.2'
 
 gem "settingslogic", "~> 2.0.9"
+gem 'taobaorb'
