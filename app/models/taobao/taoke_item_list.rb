@@ -1,37 +1,9 @@
-class Taobao::TaokeItemList < Taobao::AbstractList
-
-  def size
-    items.size
-  end
-
-  def page(num)
-    clear_response
-    @opts[:page_no] = num
-    self
-  end
-
-  def per_page(num)
-    clear_response
-    @opts[:page_size] = num
-    self
-  end
+class Taobao::TaokeItemList < Taobao::ProductList
 
   def order_by(field)
     clear_response
     @opts[:order_by] = field
     self
-  end
-
-  def method_missing(method_name, *args, &block)
-    if (m = /^order_by_(?<field>.+)$/.match method_name)
-      order_by m[:field]
-    else
-      super
-    end
-  end
-
-  def each(&block)
-    items.each{ |item| block.call item }
   end
 
   def total_count
@@ -42,7 +14,7 @@ class Taobao::TaokeItemList < Taobao::AbstractList
   end
 
   private
-  def items
+  def products
     items = cached_responce[:taobaoke_items_get_response][:taobaoke_items][:taobaoke_item]
     get_items_as_objects items
   rescue NoMethodError
