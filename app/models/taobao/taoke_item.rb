@@ -3,7 +3,7 @@ class Taobao::TaokeItem
   include Taobao::Util
   include ActionView::Helpers::SanitizeHelper
 
-  BASIC_PROPERTIES = [:num_iid, :title, :nick, :pic_url, :price, :click_url, :commission, :commission_rate, :commission_num, :commission_volume, :shop_click_url, :seller_credit_score, :item_location, :volume]
+  BASIC_PROPERTIES = [:num_iid, :title, :nick, :pic_url, :price, :click_url, :commission, :commission_rate, :commission_num, :commission_volume, :shop_click_url, :seller_credit_score, :item_location, :volume, :promotion_price]
 
 
   attr_reader *BASIC_PROPERTIES
@@ -18,7 +18,7 @@ class Taobao::TaokeItem
   end
 
   def shop
-    Taobao::Shop.new @nick
+    Taobao::Shop.new :nick=>@nick,:click_url=>@shop_click_url
   end
 
   def method_missing(method_name, *args, &block)
@@ -33,6 +33,10 @@ class Taobao::TaokeItem
 
   def convert_types
     @price = @price.to_f
+    @commission = @commission.to_f
+    @commission_num = @commission_num.to_f
+    @commission_rate = @commission_rate.to_f
+    @commission_volume = @commission_volume.to_f
     @title = strip_tags(@title)
   end
 end

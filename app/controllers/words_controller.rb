@@ -28,8 +28,13 @@ class WordsController < ApplicationController
     @slug = params.has_key?(:id) ? params[:id] : request.subdomain
     @word = Word.find_by_slug @slug
     #@rands = Word.short.random.limit(10)
-    @rands = Word.random(10).short
-    @relates = @word.related
+    @items = Item.search @word.name,
+                        :match_mode => :any,
+                        :include => :shop,
+                        :per_page => 40
+
+    @rands = Word.random(30).short
+    @relates = @word.related 10
   end
   def flush
     @word = Word.find_by_slug request.subdomain

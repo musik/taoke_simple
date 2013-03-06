@@ -1,0 +1,33 @@
+-title [@shop.title,@shop.nick].uniq.join('_'),nil,false
+.shopcard
+  .thumbnail.pull-left
+    =image_tag @shop.pic_url,:width=>80,:height=>80
+  .pull-left
+    %h1=@shop.title
+    %a.price-link.btn.btn-success{:href=>shop_link_url,:target=>'_blank',:rel=>'nofollow'} 进入店铺
+    %p.metas
+      %b 掌柜
+      %span=@shop.nick
+      %span.divider /
+      %span 始于#{@shop.created.year}.#{@shop.created.month}
+  .clearfix
+
+  
+-items = @shop.items.hot.limit(30)
+%hr
+=render :partial => 'items/list',:locals=>{:items=>items}
+
+.row-fluid
+  .widget.span12
+    -shops = Shop.quick_search @shop.title,21,:without=>{:id=>@shop.id}
+    %h3 相关店铺
+    %ul.shops.words
+      -shops.each do |shop|
+        %li{:class=>cycle('a','b')}
+          =link_to shop.nick,shop_url(shop)
+.row-fluid
+  .widget.span12
+    %h4 随机推荐
+    %ul.words
+      -Word.random(21).each do |r|
+        %li=link_to r.name,r.to_url

@@ -1,3 +1,23 @@
 
--@words.each do |w|
-  =link_to w.clean_name,w.to_url
+%section#recent
+  = render :partial => 'recent'
+%section#recent
+  = render :partial => 'item_list',:locals=>{:items=>Item.hot.limit(15),:title=>'热点推荐',:url=>items_hot_url,:id=>'hot'}
+.row
+  .widget.span4
+    %h4 最近加入
+    %ul.words
+      -Shop.limit(30).each do |r|
+        %li=link_to r.nick,shop_url(r)
+  .widget.span4
+    -words = Word.published.recent.limit(30)
+    %h3 访客正在搜
+    -#.more=link_to '更多','/',:rel=>'nofollow'
+    %ul.words
+      -words.each do |w|
+        %li=link_to w.clean_name,w.to_url
+  .widget.span4
+    %h4 随机推荐
+    %ul.words
+      -Word.random(30).each do |r|
+        %li=link_to r.name,r.to_url

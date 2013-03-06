@@ -1,0 +1,4 @@
+-items = Item.quick_search(q,12) 
+%hr
+%h2 相关推荐
+=render :partial => 'items/list',:locals=>{:items=>items}

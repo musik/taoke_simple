@@ -32,6 +32,7 @@ gem "better_errors", ">= 0.3.2", :group => :development
 gem "binding_of_caller", ">= 0.6.8", :group => :development
 #gem "libv8", ">= 3.11.8.4"
 #gem "therubyracer", ">= 0.11.0", :group => :assets, :platform => :ruby, :require => "v8"
+gem "yajl-ruby", "~> 1.1.0"
 gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 
 

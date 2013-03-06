@@ -26,7 +26,7 @@ class Taobao::TaokeItemList < Taobao::ProductList
   end
 
   def retrieve_response
-    fields = 'num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume'
+    fields = 'num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume,promotion_price'
     params = {method: 'taobao.taobaoke.items.get', fields: fields}
     Taobao.api_request params.merge(@opts)
   end

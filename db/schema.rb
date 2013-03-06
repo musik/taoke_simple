@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225142405) do
+ActiveRecord::Schema.define(:version => 20130304183633) do
 
   create_table "itemdata", :force => true do |t|
     t.integer  "word_id"
@@ -21,6 +21,31 @@ ActiveRecord::Schema.define(:version => 20130225142405) do
   end
 
   add_index "itemdata", ["word_id"], :name => "index_itemdata_on_word_id"
+
+  create_table "items", :force => true do |t|
+    t.string   "title"
+    t.string   "nick"
+    t.integer  "num_iid",                :limit => 8
+    t.integer  "seller_credit_score",    :limit => 2
+    t.integer  "volume"
+    t.decimal  "price",                               :precision => 9, :scale => 2
+    t.decimal  "commission",                          :precision => 9, :scale => 2
+    t.decimal  "commission_volume",                   :precision => 9, :scale => 2
+    t.integer  "commission_num"
+    t.integer  "commission_rate"
+    t.string   "item_location"
+    t.string   "shop_click_url"
+    t.string   "pic_url"
+    t.string   "click_url"
+    t.integer  "shop_id"
+    t.boolean  "all_properties_fetched"
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
+    t.decimal  "promotion_price",                     :precision => 9, :scale => 2
+    t.boolean  "delta",                                                             :default => true, :null => false
+  end
+
+  add_index "items", ["delta"], :name => "index_items_on_delta"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -32,6 +57,25 @@ ActiveRecord::Schema.define(:version => 20130225142405) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "shops", :force => true do |t|
+    t.string   "nick"
+    t.string   "click_url"
+    t.text     "bulletin"
+    t.integer  "cid"
+    t.datetime "created"
+    t.text     "desc"
+    t.datetime "modified"
+    t.string   "pic_path"
+    t.integer  "sid"
+    t.string   "title"
+    t.boolean  "all_properties_fetched"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "delta",                  :default => true, :null => false
+  end
+
+  add_index "shops", ["delta"], :name => "index_shops_on_delta"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -65,8 +109,11 @@ ActiveRecord::Schema.define(:version => 20130225142405) do
     t.boolean  "publish"
     t.boolean  "isbrand"
     t.string   "keywords"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "delta",                    :default => true, :null => false
   end
+
+  add_index "words", ["delta"], :name => "index_words_on_delta"
 
 end

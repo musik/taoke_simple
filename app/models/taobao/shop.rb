@@ -35,7 +35,7 @@ class Taobao::Shop
 
   def fetch_full_data
     fields = (BASIC_PROPERTIES).join ','
-    params = {method: 'taobao.shop.get', fields: fields, nick: nick}
+    params = {method: 'taobao.shop.get', fields: fields, nick: nick, format: :xml}
     result = Taobao.api_request(params)
     to_object result[:shop_get_response][:shop]
     @all_properties_fetched = true

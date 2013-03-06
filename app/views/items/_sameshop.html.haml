@@ -1,0 +1,4 @@
+-items = shop.items.where("id != #{without}").limit(12)
+%hr
+%h2 同店购
+=render :partial => 'items/list',:locals=>{:items=>items}

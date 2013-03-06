@@ -1,0 +1,40 @@
+-per_line = 5
+-if items.present?
+  -limit = items.size
+  -lines = limit / per_line
+  .carousel.slide.home-slide{:id=>id}
+    %h2=title
+    .more=link_to "更多",url,:rel=>'nofollow'
+    .carousel-inner
+      -Range.new(0,lines-1).each do |line|
+        .item{:class=>(line.zero? ? 'active' : nil)}
+          %ul.item-list
+            -i=-1
+            -items[line*per_line,per_line].each do |item|
+              -i+=1
+              %li.tbi{:class=>cycle('a','b','c'),:id=>"item-#{i}"}
+                .photo
+                  %a{:id=>"external-#{i}",:href=>item_link_url(item),:rel=>'nofollow',:target=>'_blank'}
+                    =image_tag  "#{local_path(item.pic_url)}_160x160.jpg",:width=>160,:height=>160
+                .hd
+                  .title
+                    =link_to item.title,item_url(item),:rel=>"nofollow",:target=>'_blank',:id=>"link-#{i}"
+                .ft
+                  -if item.promotion_price != item.price
+                    %del
+                      =number_to_currency item.price,:unit=>'¥'
+                  %span.price
+                    =number_to_currency item.promotion_price,:unit=>'¥'
+                %a.pull-right.btn.btn-mini{:href=>item_link_url(item),:rel=>'nofollow',:target=>'_blank'} 去看看
+                .volume
+                  近日售出#{item.volume}件
+
+    .carousel-control.left{:href=>'#'+id,'data-slide'=>'prev'} &lsaquo;
+    .carousel-control.right{:href=>'#'+id,'data-slide'=>'next'} &rsaquo;
+
+  -content_for :end do
+    =javascript_include_tag '/assets/jquery.lazyload.js'
+    =javascript_tag "$('img.lazy').lazyload({threshold: 200})"
+  
+-else
+  #items_not_found

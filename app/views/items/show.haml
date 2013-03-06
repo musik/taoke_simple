@@ -1,0 +1,34 @@
+-title @item.title,nil,false
+.itemcard
+  .photo.pull-left
+    %a{:href=>item_link_url,:target=>'_blank',:rel=>'nofollow'}
+      =image_tag "#{local_path(@item.pic_url)}_300x300.jpg"
+  .pull-left
+    %h1.normal=@item.title
+    %a.price-link.btn.btn-success{:href=>item_link_url,:target=>'_blank',:rel=>'nofollow'}
+      .price
+        -if @item.promotion?
+          %del ￥#{@item.price}
+          =@item.promotion_price
+        -else
+          =@item.price
+      .divider
+      .link 去购买
+    -#.price
+      -#-if @item.promotion?
+        -#%del ￥#{@item.price}
+        -#%tt=@item.promotion_price
+      -#-else
+        -#%tt=@item.price
+    -#%a.btn.btn-success{:href=>item_link_url,:target=>'_blank',:rel=>'nofollow'} 去购买
+    %dl
+      %dt 店铺
+      %dd=link_to @item.shop.nick,shop_url(@item.shop)
+      %dt 所在
+      %dd=@item.item_location
+  .clearfix    
+
+= render :partial => 'sameshop',:locals=>{:shop=>@item.shop,:without=>@item.id}
+= render :partial => 'related',:locals=>{:q=>@item.title}
+-#=debug @item.shop
+

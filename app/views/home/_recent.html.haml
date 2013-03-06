@@ -1,0 +1,3 @@
+-limit = 15
+-items = Item.recent.limit(limit)
+= render :partial => 'item_list',:locals=>{:items=>items,:title=>'最新发现',:url=>items_recent_url,:id=>'recent'}

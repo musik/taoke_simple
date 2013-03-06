@@ -1,5 +1,7 @@
-= link_to Settings.appname, root_url(:subdomain=>'www'), :class => 'brand'
+= link_to Settings.appname, root_url(:subdomain=>Settings.primary_domain), :class => 'brand'
 %ul.nav
+  %li=link_to "最新发现",items_recent_url(:subdomain=>Settings.primary_domain)
+  -#%li=link_to "热门",items_hot_url
   
 -#%ul.nav.pull-right
   -#- if user_signed_in?

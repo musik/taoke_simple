@@ -19,6 +19,8 @@
           .row
             .span12
               = render 'layouts/messages'
+              -if show_title?
+                %h1=yield :header
               = yield
           %footer
             &copy; 2012 
@@ -26,5 +28,6 @@
             =yield :footer
       / ! end of .container
     / ! end of #main
-    -#= javascript_include_tag "application"
+    = javascript_include_tag "application"
+    =yield :end
     ='<script type="text/javascript" src="http://js.tongji.linezing.com/3086576/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3086576/tongji.gif"/></a></noscript>'.html_safe

@@ -2,7 +2,8 @@ $iconSpritePath: url('glyphicons-halflings.png')
 $iconWhiteSpritePath: url('glyphicons-halflings-white.png')
 $iconLoadingPath: url('process.png')
 @import "bootstrap"
-//@import "bootstrap-responsive"
+@import "bootstrap-responsive"
+@import "bootstrap-carousel"
 body
   padding-top: 40px
   //background: #f8f8f8
@@ -15,6 +16,21 @@ body.noad
   //background-color: #fff
   padding:  5px 20px 20px
   margin: 0 -20px 20px
+.home.index
+  .container  
+    width: 940px
+  .span12
+    width: 940px
+  .span8
+    width: 620px
+    margin-left: 20px
+  .span4
+    width: 300px
+    margin-left: 20px
+  .span3
+    width: 220px
+    margin-left: 20px
+
 
 h1,h2,h3,h4,h5,h6
   line-height: 1.5em
@@ -25,10 +41,15 @@ h1,h2,h3,h4,h5,h6
 h1  
   font-size: 32px
   color: #09c
+h1.normal
+  font-size: 18px
 h2  
   font-size: 16px
 h3,h4 
   font-size: 14px
+
+footer
+  margin: 2em 0 0
 .description
   color: #999
   strong
@@ -48,8 +69,174 @@ ul.items
     del,.meta
       color: #999
       font-size: 12px
+ul.item-3colsx
+  margin-left: 0
+  margin-bottom: 18px
+  li
+    float: left
+    list-style: none
+    width: 300px
+    margin: 10px 0 0 17px
+    cursor: pointer
+    border: 1px solid #eee
+  li:hover
+    border-color: #666
+  li.a
+    margin-left: 0
+    clear: left
+  li:hover
+    background: #ffc
+  .hd
+    height: 3em
+    padding: 3px 5px
+  .title a
+    color: #444
+  .ft
+    padding: 3px 5px
+    .price
+      tt
+        font-size: 32px
+        line-height: 48px
+        color: #f60
+    .volume
+      color: #ccc
+      margin-top: 18px
+    .volume2
+      //margin-top: -10px
+      text-align: right
+      font-size: 12px
+      .brand
+        color: #080
+      abbr
+        //display: block
+        color: #999
+  .photo
+    height: 300px
+    overflow: hidden
+    background: #fff
+    img
+      //height: 300px
+      //margin: 0 auto      
+ul.item-list
+  margin: 0px 0 0 -10px
+$tbi_width: 160px  
+li.tbi
+  list-style: none
+  float: left
+  width: $tbi_width
+  padding: 14px 9px 10px
+  background: #fff
+  border: 1px solid #ddd
+  margin: 10px 0 10px 10px
+  font-size: 12px
+  .photo
+    height: $tbi_width
+    width: $tbi_width
+    overflow: hidden
+    cursor: pointer
+    margin-bottom: 5px
+    //img
+  .title a
+    cursor: text
+    color: #666
+    text-decoration: none
+  .hd
+    height: 3em
+    overflow: hidden
+    margin-bottom: 8px
+  .price
+    color: #f30
+    font-size: 14px
+  del
+    color: #ccc
+li.tbi:hover
+  @include box-shadow(0 0 10px #aaa)
+.itemcard
+  margin: 1em 0
+  .photo
+    padding: 14px 14px 0
+    border: 1px solid #ccc
+    margin-right: 1em
+    @include border-radius(5px)
+  .photo:hover
+    @include box-shadow(0 0 10px #aaa)
+.price-link    
+  font-size: 16px
+  div
+    float: left
+    padding: 0 5px
+    height: 22px
+  .divider
+    padding: 0
+    border-left: 1px solid #387038
+    border-right: 1px solid #62c462
+  .price
+    del
+      font-size: 13px
+      color: #ccc
+  .link
+    
+    
 .widget      
+  position: relative
+  h3,h4
+    color: #666
+    font-size: 14px
+  margin: 1em 0 0
   ul
     margin: 0
+    padding-left: 5px
     > li
       list-style: circle inside
+  font-size: 12px
+#word-notice      
+  margin: 1em 0
+//.item
+  //ul.item-list
+    //margin-left: 40px
+.center    
+  text-align: center
+.home-slide  
+  h2
+    background: #eee
+    color: #666
+    text-indent: 80px
+    margin: 0
+    line-height: 50px
+  .more
+    top: 18px
+    right: 70px
+    a
+      color: #666
+.home section
+  margin: 1em 0
+ul.words
+  margin: 0 0 0 -20px
+  li
+    float: left
+    margin-left: 20px
+    width: 135px
+    overflow: hidden
+    height: 1.7em
+
+.more
+  position: absolute
+  right: 20px
+  top: 13px
+  a
+    //font-size: 12px
+    text-decoration: underline
+.metas    
+  .divider
+    color: #ccc
+.shopcard    
+  margin: 5px 0
+  .thumbnail
+    margin-right: 1em
+    margin-top: 5px
+  h1
+    margin: 0 0 5px
+    font-size: 24px
+  .metas
+    margin-top: 5px
+

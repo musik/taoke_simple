@@ -19,7 +19,7 @@ class TaobaoTop
     pp [cid,Resque.redis.llen(@thiskey)]
     return
   end
-  def process cid = 16
+  def process cid = nil
     async_import_cat_data cid unless cid.nil?
     cat = get_cat cid
     cats_children(cat).each do |id,r|
