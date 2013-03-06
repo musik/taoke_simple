@@ -39,7 +39,8 @@ Capistrano::Configuration.instance.load do
     desc "|DarkRecipes| Re-establishes symlinks"
     task :symlink do
       path = "/config/#{environment}.sphinx.conf"
-      run "if [ ! -f '#{shared_path}#{path}' ]; then cd #{current_path} && #{rake_bin} RAILS_ENV=#{rails_env} ts:config; mv #{current_path}#{path} #{shared_path}#{path}; fi;"
+      #run "if [ ! -f '#{shared_path}#{path}' ]; then cd #{current_path} && #{rake_bin} RAILS_ENV=#{rails_env} ts:config; mv #{current_path}#{path} #{shared_path}#{path}; fi;"
+      run "cd #{current_path} && #{rake_bin} RAILS_ENV=#{rails_env} ts:config; mv #{current_path}#{path} #{shared_path}#{path};"
       run "rm -rf #{current_path}#{path} && ln -nfs #{shared_path}#{path} #{current_path}#{path}"
       run "if [ ! -d '#{shared_path}/config/db/sphinx' ]; then mkdir -p #{shared_path}/db/sphinx; fi;"
       run <<-CMD

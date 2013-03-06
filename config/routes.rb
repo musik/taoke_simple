@@ -3,6 +3,7 @@ TaokeSimple::Application.routes.draw do
   get "shops/top",:as=>'hot_shops'
   #match "shop/:id" => 'shop#show',:as=>'shop'
 
+  #match '/img/:p1/:p2/:p3' => redirect("http://img%{p1}.taobaocdn.com/bao/uploaded/i%{p2}/%{p3}.jpg")
   match '/img/:p1/:p2(/:p3)/(*all)' => redirect("http://img%{p1}.taobaocdn.com/bao/uploaded/i%{p2}/%{all}.jpg")
   match '/shoplogo/(*all)' => redirect("http://logo.taobaocdn.com/shop-logo/%{all}")
   get "items/recent",:as=>'items_recent'
