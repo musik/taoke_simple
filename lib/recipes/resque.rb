@@ -1,5 +1,9 @@
 Capistrano::Configuration.instance.load do
   namespace :resque do  
+    desc "|DarkRecipes| Starts the god"
+    task :god, :roles => :app do
+      run "cd #{current_path} && bundle exec god -c god/resque.god"
+    end
     namespace :worker do
       desc "|DarkRecipes| List all workers"
       task :list, :roles => :app do
@@ -8,13 +12,12 @@ Capistrano::Configuration.instance.load do
     
       desc "|DarkRecipes| Starts the workers"
       task :start, :roles => :app do
-        #run "cd #{current_path} && #{sudo} god start #{resque_service}"
-        run "cd #{current_path} && bundle exec god -c god/resque.god"
+        run "cd #{current_path} && god start #{resque_service}"
       end
     
       desc "|DarkRecipes| Stops the workers"
       task :stop, :roles => :app do
-        run "cd #{current_path} && #{sudo} god stop #{resque_service}"
+        run "cd #{current_path} &&  god stop #{resque_service}"
       end
     
       desc "|DarkRecipes| Restart all workers"
