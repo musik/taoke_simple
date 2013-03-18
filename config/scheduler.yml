@@ -1,0 +1,5 @@
+si:
+  every: 5m
+  class: ResqueSi
+  queue: schedule
+  description: "ts delta"

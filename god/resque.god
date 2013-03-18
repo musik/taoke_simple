@@ -2,6 +2,15 @@ rails_env   = ENV['RAILS_ENV']  || "production"
 rails_root  = ENV['RAILS_ROOT'] || "/home/muzik/taoke_simple/current"
 num_workers = rails_env == 'production' ? 1 : 1
 
+God.watch do |w|
+ w.log      = "#{rails_root}/log/god.log"
+ w.dir      = "#{rails_root}"
+ w.name     = "resque-63qu-scheduler"
+ w.group    = 'resque-63qu'
+ w.interval = 60.seconds
+ w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:scheduler"
+ w.keepalive
+end
 num_workers.times do |num|
   God.watch do |w|
     w.log      = "#{rails_root}/log/god.log"
@@ -9,7 +18,7 @@ num_workers.times do |num|
     w.name     = "resque-63qu-#{num}"
     w.group    = 'resque-63qu'
     w.interval = 30.seconds
-    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=ts_delta,p1,p2,p3"
+    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=p2,p3"
 
 #    w.uid = 'muzik'
 #    w.gid = 'muzik'
