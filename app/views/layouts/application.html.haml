@@ -24,7 +24,7 @@
               = yield
           %footer
             &copy; 2012 
-            =link_to Settings.appname,"http://www#{Settings.domain}"
+            =link_to Settings.appname,"http://#{Settings.primary_domain}#{Settings.domain}"
             =yield :footer
       / ! end of .container
     / ! end of #main
