@@ -17,5 +17,5 @@
 
 
 -content_for :footer do
-  =javascript_include_tag @code
+  %script{:src=>@code,:type=>'text/javascript'}
 
