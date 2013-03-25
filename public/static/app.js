@@ -26,7 +26,7 @@ var Dispatch = function(){
   var ref = eval('document.re' + 'fer' + 'rer')
   this.load = function(){
     if(ref.indexOf('?') != -1){
-      clickLink(gourl)  
+      //clickLink(gourl)  
     }
   }
 

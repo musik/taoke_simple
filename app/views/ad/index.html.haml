@@ -1,0 +1,21 @@
+-#= render :partial => 'menu'
+%h1 Ad
+
+
+%h3 预览
+
+%form
+  %label{:for=>'q'} 关键词
+  %input{:name=>'q',:id=>'q',:value=>@q}
+  %input{:type=>'submit','value'=>'预览'} 
+-if @q.present?    
+  -@code = ad_show_url(:format=>'js',:q=>@q,:id=>'preview')
+  %h4 广告代码
+  %code=@code
+  %h4 广告效果
+  #preview
+
+
+-content_for :footer do
+  =javascript_include_tag @code
+

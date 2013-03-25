@@ -1,0 +1,13 @@
+.mk_items
+  -i=-1
+  -@items.each do |item|
+    -i+=1
+    -break if i > 10
+    .item{:class=>i==1 ? "first" : nil}
+      %a{:href=>item.click_url,:rel=>'nofollow',:target=>'_blank'}
+        .photo
+          =image_tag "#{item.pic_url}_90x90.jpg",:width=>90,:height=>88
+        .price  
+          =item.promotion_price.to_s.sub(/\.0$/,'')
+
+

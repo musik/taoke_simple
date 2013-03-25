@@ -1,4 +1,11 @@
 TaokeSimple::Application.routes.draw do
+  get "ad/display",:as=>'ad_display'
+  get "ad/show",:as=>'ad_show'
+  get "ad/preview",:as=>'ad_preview'
+  get "tbshow"=>'ad#show',:as=>'tbshow'
+  get "tbdisplay"=>'ad#display',:as=>'tbdisplay'
+  get "ad"=>'ad#index',:as=>'ad'
+
   get "shops/recent",:as=>'recent_shops'
   get "shops/top",:as=>'hot_shops'
   #match "shop/:id" => 'shop#show',:as=>'shop'

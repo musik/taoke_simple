@@ -33,6 +33,10 @@ class Taobao::TaokeItem
 
   def convert_types
     @price = @price.to_f
+    @promotion_price = @promotion_price.to_f
+    #%w(commission commission_num commission_rate commission_volume).each do |k|
+
+    #end
     @commission = @commission.to_f
     @commission_num = @commission_num.to_f
     @commission_rate = @commission_rate.to_f

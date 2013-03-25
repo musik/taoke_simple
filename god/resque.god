@@ -8,7 +8,7 @@ God.watch do |w|
  w.name     = "resque-63qu-scheduler"
  w.group    = 'resque-63qu'
  w.interval = 60.seconds
- w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:scheduler"
+ w.start    = "cd #{rails_root} && INTERVAL=60 RAILS_ENV=#{rails_env} bundle exec rake resque:scheduler"
  w.keepalive
 end
 num_workers.times do |num|
@@ -18,7 +18,7 @@ num_workers.times do |num|
     w.name     = "resque-63qu-#{num}"
     w.group    = 'resque-63qu'
     w.interval = 30.seconds
-    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=p2,p3"
+    w.start    = "cd #{rails_root} && INTERVAL=10 RAILS_ENV=#{rails_env} bundle exec rake resque:work QUEUE=schedule,p2,p3"
 
 #    w.uid = 'muzik'
 #    w.gid = 'muzik'
