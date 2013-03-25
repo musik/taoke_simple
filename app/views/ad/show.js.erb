@@ -1,6 +1,4 @@
-var MuzikAli = function(){
-  this.loadFunc = function(q,id,ic){
+var  MuzikTb = function(q,id,ic){
     document.getElementById(id).innerHTML = '<iframe src="/tbdisplay?q='+q+'&ic='+ic+'" frameborder=0 width=980 height=90 scrolling=no></iframe>';
   }
-}
-(new MuzikAli).loadFunc('<%=@q%>','<%=@id%>','<%=@ic%>');
+MuzikTb('<%=@q%>','<%=@id%>','<%=@ic%>');
