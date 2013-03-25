@@ -1,8 +1,6 @@
 var MuzikAli = function(){
-  var items = [];
   this.loadFunc = function(q,id,ic){
     document.getElementById(id).innerHTML = '<iframe src="/tbdisplay?q='+q+'&ic='+ic+'" frameborder=0 width=980 height=90 scrolling=no></iframe>';
   }
 }
-console.log(new MuzikAli);
 (new MuzikAli).loadFunc('<%=@q%>','<%=@id%>','<%=@ic%>');
