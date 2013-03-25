@@ -13,8 +13,8 @@ class Taobao::TaokeItemList < Taobao::ProductList
   def total_count
     cached_responce[:items_get_response][:total_results].to_i
   end
-  def self.search query
-    self.new(keyword: query)
+  def self.search query,options={}
+    self.new({keyword: query}.merge(options))
   end
 
   private
@@ -32,6 +32,7 @@ class Taobao::TaokeItemList < Taobao::ProductList
   def retrieve_response
     fields = @opts.has_key?(:fields) ? @opts.delete(:fields) : 'num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume,promotion_price'
     params = {method: 'taobao.taobaoke.items.get', fields: fields}
+    Rails.logger.info @opts
     Taobao.api_request params.merge(@opts)
   end
 
