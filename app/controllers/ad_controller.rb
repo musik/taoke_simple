@@ -20,7 +20,7 @@ class AdController < ApplicationController
     if @ic.present?
       @q.encode!('utf-8',@ic)
     end
-    @items = Taobao::TaokeItemList.search(@q,:page_size=>10,:outer_code=>'63qu').fields('title,pic_url,click_url,promotion_price').order_by('commissionVolume_desc')
+    @items = Taobao::TaokeItemList.search(@q,:page_size=>10,:outer_code=>'63qu').fields('title,pic_url,click_url,promotion_price,nick').order_by('commissionVolume_desc')
     render :layout=>'js'
   end
   def preview

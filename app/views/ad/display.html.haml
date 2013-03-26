@@ -1,13 +1,18 @@
+=javascript_tag 'var _hmt = _hmt || [];'
 .mk_items
   -i=-1
   -@items.each do |item|
     -i+=1
     -break if i > 10
     .item{:class=>i==1 ? "first" : nil}
-      %a{:href=>item.click_url,:rel=>'nofollow',:target=>'_blank',:title=>item.title}
+      %a{:href=>item.click_url,:rel=>'nofollow',:target=>'_blank',:title=>item.title,:onclick=>"_hmt.push(['taobao','#{item.nick}','#{request.referer}'])"}
         .photo
           =image_tag "#{item.pic_url}_90x90.jpg",:width=>90,:height=>88
         .price  
           =item.promotion_price.to_s.sub(/\.0$/,'')
 
+  <script type="text/javascript">
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0e1f155833b397eb86d81e6c6aac715b' type='text/javascript'%3E%3C/script%3E"));
+  </script>
 
