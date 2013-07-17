@@ -310,8 +310,6 @@ GEM
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
-    rvm-capistrano (1.2.7)
-      capistrano (>= 2.0.0)
     sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -450,7 +448,6 @@ DEPENDENCIES
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.4)
   ruby_parser (>= 3.1.1)
-  rvm-capistrano
   sass-rails (~> 3.2.3)
   settingslogic (~> 2.0.9)
   simple_form (>= 2.0.4)

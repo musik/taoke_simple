@@ -49,7 +49,7 @@ group :development do
   #gem 'capistrano-ext'
   gem 'capistrano-recipes'
   gem 'capistrano-helpers'
-  gem 'rvm-capistrano'
+  #gem 'rvm-capistrano'
   gem 'capistrano-unicorn',:git=>'git://github.com/sosedoff/capistrano-unicorn.git'
   gem 'capistrano-resque'
   gem 'thin'

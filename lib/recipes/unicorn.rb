@@ -17,6 +17,7 @@ Capistrano::Configuration.instance.load do
   # This is necessary if you're using rvm
   set :unicorn_bin, 'bundle exec unicorn' unless exists?(:unicorn_bin)
   set :unicorn_socket, File.join(sockets_path,'unicorn.sock') unless exists?(:unicorn_socket)
+  set :unicorn_port, 9000 unless exists?(:unicorn_port)
 
   # Defines where the unicorn pid will live.
   set(:unicorn_pid) { File.join(pids_path, "unicorn.pid") } unless exists?(:unicorn_pid)
